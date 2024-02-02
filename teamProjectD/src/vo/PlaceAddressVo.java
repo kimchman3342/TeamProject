@@ -11,6 +11,7 @@ public class PlaceAddressVo {
     private int address_seq;
     private String address;
     private int place_seq;
+    private String name; //
 
     @Override
     public String toString() {
