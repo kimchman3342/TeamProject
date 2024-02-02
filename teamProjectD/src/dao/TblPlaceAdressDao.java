@@ -1,4 +1,4 @@
-package JDBCteamProject.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import JDBCteamProject.vo.PlaceAddressVo;
+import vo.*;
 
 public class TblPlaceAdressDao {
     public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
@@ -49,11 +49,11 @@ public class TblPlaceAdressDao {
         return list;
     }// selectedByArea
 
-    public void deletePlaceAddress(PlaceAddressVo pav) {
+    public void deletePlaceAddress(int paVo) {
         String sql = "DELETE\r\n" + "FROM TBL_PLACE_ADDRESS tpa\r\n" + "WHERE PLACE_SEQ = ?";
         try (Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setInt(1, pav.getPlace_seq());
+            pstmt.setInt(1, paVo);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("[placeAdress]삭제 예외 발생: " + e.getMessage());

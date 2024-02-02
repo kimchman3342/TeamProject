@@ -12,7 +12,7 @@ public class RestaurantApp {
     private AreaUnitVo areaUnitVo = new AreaUnitVo(0, null);
     private JoinColumnVo joinColumnVo = new JoinColumnVo();
     private PlaceAddressVo placeAddressVo = new PlaceAddressVo(0, null, 0);
-    private PlaceVo placeVo = new PlaceVo(0, null, 0, null, null);
+    private PlaceVo placeVo = new PlaceVo(0, null, null, 0, null, null, null);
 
     // private void showRestaurant(String address);//주인찾아요~~ 주석어디갔나요?
     // System.out.println("지역을 입력해주세요. [1. 서울 2. 인천 3. 경기 4. 대구 5. 광주 6. 제주 ]");
@@ -112,15 +112,14 @@ public class RestaurantApp {
 
     }// modifyResturant
 
-    public static void removeAdressBook() {
+    public void removeAdressBook() {
         System.out.println(".".repeat(50));
         System.out.println("추방할 맛집 ID를 알려주세요");
         System.out.println(".".repeat(50));
         System.out.print("ID >>>");
-        String place_seq = System.console().readLine();
-        if (place_seq != null) {
-            placeVo = new PlaceVo();
-            deletePlaceAddress(placeVo);
+        int place_seq = Integer.parseInt(System.console().readLine());
+        if (place_seq != 0) {
+            placeAdressDao.deletePlaceAddress(place_seq);
             System.out.println("맛집이 추방되었습니다. 새로운 맛집을 탐방해주세요");
         }
     }// removeAdressBook

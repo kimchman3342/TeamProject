@@ -15,7 +15,7 @@ public class MenuVo {
 
     @Override
     public String toString() {
-        return String.format("%8d \t %-%8d %50s",
-                place_seq, address_seq, address);
+        return String.format("%8d, menu_seq : %8d \t menu_name : %-50s %,10d",
+                place_seq, menu_seq, menu_name, price);
     }
 }

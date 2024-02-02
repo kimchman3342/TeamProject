@@ -1,11 +1,11 @@
-package JDBCteamProject.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import JDBCteamProject.vo.MenuVo;
+import vo.MenuVo;
 
 public class TblMenuDao {
     public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
