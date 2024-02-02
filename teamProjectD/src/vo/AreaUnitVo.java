@@ -1,4 +1,4 @@
-package JDBCteamProject.vo;
+package vo;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

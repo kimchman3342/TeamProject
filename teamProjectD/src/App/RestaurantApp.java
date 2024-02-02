@@ -1,6 +1,7 @@
 package App;
 
-import JDBCteamProject.dao.*; //이거 빨개여  넵
+import dao.*;
+import vo.*;
 
 public class RestaurantApp {
     private TblPlaceDao placeDao = new TblPlaceDao();
@@ -8,6 +9,10 @@ public class RestaurantApp {
     private TblAreaUnitDao AreaUnitDao = new TblAreaUnitDao();
     private TblMenuDao menuDao = new TblMenuDao();
     private MenuVo menuVo = new MenuVo(0, 0, null, 0);
+    private AreaUnitVo areaUnitVo = new AreaUnitVo(0, null);
+    private JoinColumnVo joinColumnVo = new JoinColumnVo();
+    private PlaceAddressVo placeAddressVo = new PlaceAddressVo(0, null, 0);
+    private PlaceVo placeVo = new PlaceVo(0, null, 0, null, null);
 
     // private void showRestaurant(String address);//주인찾아요~~ 주석어디갔나요?
     // System.out.println("지역을 입력해주세요. [1. 서울 2. 인천 3. 경기 4. 대구 5. 광주 6. 제주 ]");

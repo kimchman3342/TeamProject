@@ -1,4 +1,4 @@
-package JDBCteamProject.vo;
+package vo;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -14,5 +14,8 @@ public class MenuVo {
     private int price;
 
     @Override
-    public 
+    public String toString() {
+        return String.format("%8d \t %-%8d %50s",
+                place_seq, address_seq, address);
+    }
 }

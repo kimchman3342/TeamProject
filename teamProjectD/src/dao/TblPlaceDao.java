@@ -5,8 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
-import JDBCteamProject.vo.PlaceVo;
+import teamProjectD.vo.PlaceVo;
 
 public class TblPlaceDao {
     public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
@@ -60,4 +61,42 @@ public class TblPlaceDao {
     }
     return vo;
     }// randomRestorant
+
+    public List<PlaceVo> nameSearchList(String name) {
+        List<PlaceVo> list = new ArrayList<>();
+        String sql = "SELECT  tp.place_seq\r\n" + //
+                "\t  , name\r\n" + //
+                "\t  , open_time \r\n" + //
+                "\t  , close_time\r\n" + //
+                "\t  , tpa.address\r\n" + //
+                "\t  , tm.menu_name\r\n" + //
+                "\t  , to_char(tm.price, '999,999,999') AS price\r\n" + //
+                "FROM  tbl_place tp\r\n" + //
+                "\t, tbl_menu tm\r\n" + //
+                "\t, tbl_place_address tpa\r\n" + //
+                "WHERE tp.place_seq = tm.place_seq\r\n" + //
+                "    AND tp.place_seq = tpa.place_seq\r\n" + //
+                "    AND tp.name LIKE '%' || '?'  ||'%'";
+        try (Connection connection = getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(sql);) {
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                list.add(new PlaceVo(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("예외 발생 :" + e.getMessage());
+        }
+
+        return list;
+
+    }
+
 }

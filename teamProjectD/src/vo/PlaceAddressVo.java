@@ -1,12 +1,10 @@
-package JDBCteamProject.vo;
+package vo;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
-@ToString
 @AllArgsConstructor
 @EqualsAndHashCode
 public class PlaceAddressVo {
@@ -14,4 +12,9 @@ public class PlaceAddressVo {
     private String address;
     private int place_seq;
 
+    @Override
+    public String toString() {
+        return String.format("%8d \t %8d %-50s",
+                place_seq, address_seq, address);
+    }
 }

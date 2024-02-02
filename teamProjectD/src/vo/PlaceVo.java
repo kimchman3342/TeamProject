@@ -1,4 +1,4 @@
-package JDBCteamProject.vo;
+package vo;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -18,7 +18,7 @@ public class PlaceVo {
 
     @Override
     public String toString() {
-        return String.format("%8d %-15s %40s \t %,6d %4d %30s",
-                buy_idx, pcode, pname, price, quantity, buy_date);
+        return String.format("%8d %-40s %15s %4d \t %10d~%10d \t %10s",
+                place_seq, name, phone, rate, open_time, close_time, food_type);
     }
 }
