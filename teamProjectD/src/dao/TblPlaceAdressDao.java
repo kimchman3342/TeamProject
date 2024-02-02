@@ -19,7 +19,7 @@ public class TblPlaceAdressDao {
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }// getConnection
 
-    public List<PlaceAddressVo> selectedByArea(String address) {
+    public List<PlaceAddressVo> findArea(String address) {
         List<PlaceAddressVo> list = new ArrayList<>();
         String sql = "SELECT   tp.place_seq\r\n" + //
                 "\t\t,tp.name\r\n" + //

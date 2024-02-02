@@ -45,32 +45,31 @@ public class TblPlaceDao {
         }
     }// modifyPlace
 
-    public PlaceVo randomRestorant(String place,int time) {// 이거 행으로 가져가실 거면 리스트로 가져가 주세요!!!!
-        PlaceVo vo = null; // 저기 밑에 있는 오류들은 지금 Vo 잘못 가져와서 그런거죠?
-        List<PlaceVo> list = new HashMa
-        String sql = "SELECT * FROM(SELECT * FROM TBL_PLACE tp, TBL_PLACE_ADDRESS tpa WHERE ADDRESS like '%'||?||'%' ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM <= ?";
-
+    public List<PlaceVo> randomRestorant(String place, int time) {
+        List<PlaceVo> list = new ArrayList<>();
+        String sql = "SELECT * \r\n" + //
+                "FROM\r\n" + //
+                "   (SELECT * \r\n" + //
+                "   FROM TBL_PLACE tp, \r\n" + //
+                "   TBL_PLACE_ADDRESS tpa \r\n" + //
+                "   WHERE ADDRESS like '%'||?||'%'\r\n" + //
+                "   ORDER BY DBMS_RANDOM.VALUE) \r\n" + //
+                "WHERE ROWNUM <= ?";
         try (
                 Connection connection = getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(sql);) {
-
-            pstmt.setString(1, place); // place_seq에 대한 바인딩이 필요하지 않다면 이 부분은 제거해도 됩니다.
-            pstmt.setInt(2,time);
+            pstmt.setString(1, place);
+            pstmt.setInt(2, time);
             ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-                // ResultSet에서 데이터를 가져와서 PlaceVo 객체에 저장합니다.
-                vo = new PlaceVo(0,null,null,0,null,null,null);
-                vo.setPlace(rs.getInt("PLACE_ID"));
-                vo.setPlace();
-                vo.setPlaceName(rs.getString("PLACE_NAME"));
-                // 필요한 컬럼들을 추가로 설정하시면 됩니다.
+            while (rs.next()) {
+                list.add(new PlaceVo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
+                        rs.getString(6), rs.getString(7)));
             }
         } catch (SQLException e) {
             System.out.println("randomRestorant 실행 예외 발생: " + e.getMessage());
         }
-
-        return vo;
+        return list;
     }// randomRestorant
 
     public List<PlaceVo> findName(String name) {

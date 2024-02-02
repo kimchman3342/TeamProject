@@ -10,7 +10,6 @@ public class RestaurantApp {
     private TblMenuDao menuDao = new TblMenuDao();
     private MenuVo menuVo = new MenuVo(0, 0, null, 0);
     private AreaUnitVo areaUnitVo = new AreaUnitVo(0, null);
-    private JoinColumnVo joinColumnVo = new JoinColumnVo();
     private PlaceAddressVo placeAddressVo = new PlaceAddressVo(0, null, 0);
     private PlaceVo placeVo = new PlaceVo(0, null, null, 0, null, null, null);
 
@@ -87,13 +86,18 @@ public class RestaurantApp {
         System.out.println(".".repeat(50));
     }// joinAdressBook
 
-    public static void findName() {
+    public void findName() {
         System.out.println("[A] 이름으로 맛집 찾기");
+        String name = System.console().readLine();
 
+        System.out.println(placeDao.findName(name));
     }// findName
 
-    public static void findArea() {
+    public void findArea() {
+        System.out.println("[B] 지역으로 맛집 찾기");
+        String address = System.console().readLine();
 
+        System.out.println(placeAdressDao.findArea(address));
     }// findArea
 
     public static void showRate() {
