@@ -45,22 +45,29 @@ public class TblPlaceDao {
         }
     }// modifyPlace
 
-    public void randomRestorant(int place_seq){
-    PlaceVo vo = null;
-    
-    String sql = "SELECT * FROM(SELECT *FROM TBL_PLACE tp WHERE RATE >= 4.5 ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM <=3";
+    public PlaceVo randomRestorant(int place_seq) {
+        PlaceVo vo = null;
 
-    try(
-        Connection connection = getConnection();
-        PreparedStatement pstmt = connection.prepareStatement(sql);
-    ) {
-        pstmt.setInt(1, place_seq);
-        ResultSet rs = pstmt.executeQuery();
-        vo =
-    } catch (SQLException e) {
-      System.out.println("randomRestorant 실행 예외 발생 : " + e.getMessage());
-    }
-    return vo;
+        String sql = "SELECT * FROM(SELECT * FROM TBL_PLACE tp WHERE RATE >= 4.5 ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM <= 3";
+
+        try (
+                Connection connection = getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(sql);) {
+            // pstmt.setInt(1, place_seq); // place_seq에 대한 바인딩이 필요하지 않다면 이 부분은 제거해도 됩니다.
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                // ResultSet에서 데이터를 가져와서 PlaceVo 객체에 저장합니다.
+                vo = new PlaceVo();
+                vo.setPlace(rs.getInt("PLACE_ID"));
+                vo.setPlaceName(rs.getString("PLACE_NAME"));
+                // 필요한 컬럼들을 추가로 설정하시면 됩니다.
+            }
+        } catch (SQLException e) {
+            System.out.println("randomRestorant 실행 예외 발생: " + e.getMessage());
+        }
+
+        return vo;
     }// randomRestorant
 
     public List<PlaceVo> nameSearchList(String name) {
