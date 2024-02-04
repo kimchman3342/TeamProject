@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import vo.PlaceVo;
+ 
+import vo.PlaceVo; 
 
 public class TblPlaceDao {
     public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
