@@ -13,16 +13,22 @@ public class RestaurantApp {
     private PlaceAddressVo placeAddressVo = new PlaceAddressVo(0, null, 0);
     private PlaceVo placeVo = new PlaceVo(0, null, null, 0, null, null, null);
 
-    // private void showRestaurant(String address);//주인찾아요~~ 주석어디갔나요?
-    // System.out.println("지역을 입력해주세요. [1. 서울 2. 인천 3. 경기 4. 대구 5. 광주 6. 제주 ]");
-    // System.out.print("지역 입력__");
-    // String customerid = System.console().readLine();
-
+    /*
+     * TODAY TODO
+     * 
+     */
     public static void main(String[] args) {
         RestaurantApp app = new RestaurantApp();
         app.start();
 
     }// main
+
+    public static void joinAdressBook() {
+        System.out.println(".".repeat(50));
+        System.out.println("[A] 이름으로 맛집 찾기     [B]지역 별로 맛집 찾기   [C]평점 순위 보기   [D] 랜덤 맛집 뽑기 ");
+        System.out.println("[E] 맛집 추가                [F]맛집 수정               [G]삭제                [H]종료");
+        System.out.println(".".repeat(50));
+    }// joinAdressBook
 
     public void start() {
         boolean run = true;
@@ -34,40 +40,59 @@ public class RestaurantApp {
             switch (select) {
                 case "A", "a":
                     System.out.println("[A] 이름으로 맛집 찾기");
-                    findName();
+                    System.out.println("찾는 맛집 이름을 입력해주세요__");
+                    String name = System.console().readLine();
+                    System.out.println(placeDao.findName(name));
                     break;
 
                 case "B", "b":
                     System.out.println("[B] 지역 별로 맛집 찾기");
-                    findArea();
+                    System.out.println("맛집 목록[1. 서울 2. 인천 3. 경기 4. 대구 5. 광주 6. 제주 ]");
+                    System.out.println("찾는 맛집의 지역명을 입력해주세요__");
+                    String address = System.console().readLine();
+                    System.out.println(placeAdressDao.findArea(address));
                     break;
 
                 case "C", "c":
                     System.out.println("[C] 평점 순위 보기");
-                    showRate();
+                    double rate = Double.parseDouble(System.console().readLine());
+                    System.out.println(placeDao.showRate(rate));
                     break;
 
                 case "D", "d":
                     System.out.println("[D] 랜덤 맛집 뽑기");
-                    randomRestorant();
+                    String place = System.console().readLine();
+                    int time = Integer.parseInt(System.console().readLine());
+                    System.out.println(placeDao.randomRestorant(place, time));
                     break;
 
                 case "E", "e":
                     System.out.println("[E] 맛집 추가");
-                    addRasturant();
+                    System.out.println("맛집을 추가합니다.");
+                    System.out.print("추가할 맛집이름을 입력해주세요.");
+                    name = System.console().readLine();
+
                     break;
 
                 case "F", "f":
-                    System.out.println("[F] 맛집 수정");
+                    System.out.println("[F] 평점 수정");
                     System.out.println("지역명을 입력해주세요");
-                    String name = System.console().readLine();
-                    int time = Integer.parseInt(System.console().readLine());
-                    System.out.print(placeDao.modifyRate(name, time));
+                    name = System.console().readLine();
+                    rate = Integer.parseInt(System.console().readLine());
+                    System.out.println(placeDao.modifyRate(name, rate));
                     break;
 
                 case "G", "g":
                     System.out.println("맛집을 삭제하겠습니다.");
-                    removeAdressBook();
+                    System.out.println(".".repeat(50));
+                    System.out.println("추방할 맛집 ID를 알려주세요");
+                    System.out.println(".".repeat(50));
+                    System.out.print("ID >>>");
+                    int place_seq = Integer.parseInt(System.console().readLine());
+                    if (place_seq != 0) {
+                        placeAdressDao.deletePlaceAddress(place_seq);
+                        System.out.println("맛집이 추방되었습니다. 새로운 맛집을 탐방해주세요");
+                    }
                     break;
 
                 case "H", "h":
@@ -83,61 +108,7 @@ public class RestaurantApp {
         } // while
     }// start
 
-    public static void joinAdressBook() {
-        System.out.println(".".repeat(50));
-        System.out.println("[A] 이름으로 맛집 찾기     [B]지역 별로 맛집 찾기   [C]평점 순위 보기   [D] 랜덤 맛집 뽑기 ");
-        System.out.println("[E] 맛집 추가                [F]맛집 수정               [G]삭제                [H]종료");
-        System.out.println(".".repeat(50));
-    }// joinAdressBook
+    public List<MenuVo> addMenu(int menu_seq, int place_seq, String menu_name, int price) {
 
-    public void findName() {
-        System.out.println("찾는 맛집 이름을 입력해주세요__");
-        String name = System.console().readLine();
-
-        System.out.println(placeDao.findName(name));
-    }// findName
-
-    public void findArea() {
-        System.out.println("맛집 목록[1. 서울 2. 인천 3. 경기 4. 대구 5. 광주 6. 제주 ]");
-        System.out.println("찾는 맛집의 지역명을 입력해주세요__");
-        String address = System.console().readLine();
-
-        System.out.println(placeAdressDao.findArea(address));
-    }// findArea
-
-    public void showRate() {
-        System.out.println("[C] 평점 순위");
-        String address = System.console().readLine();
-
-        // System.out.println(placeDao.showRate(rate));
-
-    }// showRate
-
-    public void modifyRate() {
-        System.out.println("지역명을 입력해주세요");
-        String name = System.console().readLine();
-        int time = Integer.parseInt(System.console().readLine());
-        System.out.println(placeDao.modifyRate(name, time));
-
-    }// modifyRate //평점수정
-
-    public void addRasturant() {
-        System.out.println("맛집을 추가합니다.");
-        System.out.println("추가할 맛집이름을 입력해주세요.");
-        String name = System.console().readLine();
-
-    }// addRasturant
-
-    public void removeAdressBook() {
-        System.out.println(".".repeat(50));
-        System.out.println("추방할 맛집 ID를 알려주세요");
-        System.out.println(".".repeat(50));
-        System.out.print("ID >>>");
-        int place_seq = Integer.parseInt(System.console().readLine());
-        if (place_seq != 0) {
-            placeAdressDao.deletePlaceAddress(place_seq);
-            System.out.println("맛집이 추방되었습니다. 새로운 맛집을 탐방해주세요");
-        }
-    }// removeAdressBook //맛집삭제
-
+    }
 }

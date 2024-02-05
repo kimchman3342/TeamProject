@@ -10,6 +10,15 @@ import java.util.List;
 
 import vo.*;
 
+/**
+ * 여기에 있는 메소드
+ * 지역별 맛집찾기
+ * List<PlaceAddressVo> findArea(String address)
+ * 
+ * 삭제
+ * void deletePlaceAddress(int paVo)
+ * 
+ */
 public class TblPlaceAdressDao {
     public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
     public static final String USERNAME = "c##idev";
@@ -31,7 +40,7 @@ public class TblPlaceAdressDao {
                 "\t, tbl_area_unit au\r\n" + //
                 "WHERE tp.place_seq = tpa.place_seq\r\n" + //
                 "  AND substr(tpa.address,0,2) = au.unit_name\r\n" + //
-                "  AND au.unit_name = '?'";
+                "  AND au.unit_name = ? ";
 
         try (Connection connection = getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(sql);) {

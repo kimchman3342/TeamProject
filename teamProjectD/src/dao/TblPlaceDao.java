@@ -10,6 +10,23 @@ import java.util.List;
 
 import vo.PlaceVo;
 
+/**
+ * 
+ * 삭제
+ * deletePlace
+ * 
+ * 평점변경
+ * modifyRate
+ * 
+ * 랜덤 맛집 선정
+ * randomRestorant
+ * 
+ * 이름별 맛집 찾기
+ * findName
+ * 
+ * 평점별 맛집 찾기
+ * showRate
+ */
 public class TblPlaceDao {
     public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
     public static final String USERNAME = "c##idev";
@@ -108,7 +125,7 @@ public class TblPlaceDao {
 
     }// 이름으로 찾기
 
-    public List<PlaceVo> showRate(int rate) {
+    public List<PlaceVo> showRate(double rate) {
         List<PlaceVo> list = new ArrayList<>();
         String sql = "SELECT tp.place_seq,tp.name,open_time,close_time,tpa.address,tp.rate\r\n" + //
                 "FROM  tbl_place tp ,tbl_place_address tpa\r\n" + //
@@ -117,7 +134,7 @@ public class TblPlaceDao {
 
         try (Connection connection = getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(sql);) {
-            pstmt.setInt(1, rate);
+            pstmt.setDouble(1, rate);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 list.add(new PlaceVo(rs.getInt(1),
@@ -137,4 +154,14 @@ public class TblPlaceDao {
 
     }
 
+    public void deletePlace(PlaceVo pv) {
+        String sql = "DELETE\r\n" + "FROM TBL_Place \r\n" + "WHERE PLACE_SEQ = ?";
+        try (Connection conn = getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, pv.getPlace_seq());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("[메뉴] 삭제 예외 발생: " + e.getMessage());
+        }
+    }// deletePlace
 }
