@@ -56,7 +56,6 @@ public class TblPlaceDao {
             pstmt.setString(1, name);
             pstmt.setDouble(2, newRate);
             pstmt.executeUpdate();
-            System.out.println("가게 평점이 수정되었습니다.");
         } catch (SQLException e) {
             System.out.println("가게 평점 변경 실행 예외 발생: " + e.getMessage());
         }

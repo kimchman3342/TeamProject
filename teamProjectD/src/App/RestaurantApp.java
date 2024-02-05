@@ -83,7 +83,10 @@ public class RestaurantApp {
                     name = System.console().readLine();
                     System.out.println("수정할 평점을 입력해주세요");
                     double newRate = Double.parseDouble(System.console().readLine());
-                    placeDao.modifyRate(name, newRate);
+                    if (newRate != 0) {
+                        placeDao.modifyRate(name, newRate);
+                        System.out.println("가게 평점이 수정되었습니다.");
+                    }
                     break;
 
                 case "G", "g":
@@ -124,6 +127,6 @@ public class RestaurantApp {
         }
         return list;
 
-    }
+    }// addMenulist
 
 }
