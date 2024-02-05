@@ -28,22 +28,21 @@ public class TblPlaceDao {
         } catch (SQLException e) {
             System.out.println("[place] 삭제 예외 발생: " + e.getMessage());
         }
-    }// deletePlace
+    }// deletePlace //맛집삭제
 
-    public void modifyPlace(int placeSeq, double newRate) {
+    public void modifyRate(String name, double newRate) {
         String sql = "UPDATE tbl_place SET rate = ? WHERE place_seq = ?";
-
         try (
                 Connection connection = getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(sql);) {
             pstmt.setDouble(1, newRate);
-            pstmt.setInt(2, placeSeq);
+            pstmt.setString(2, name);
             pstmt.executeUpdate();
             System.out.println("가게 평점이 수정되었습니다.");
         } catch (SQLException e) {
             System.out.println("가게 평점 변경 실행 예외 발생: " + e.getMessage());
         }
-    }// modifyPlace
+    }// modifyRate //평점수정
 
     public List<PlaceVo> randomRestorant(String place, int time) {
         List<PlaceVo> list = new ArrayList<>();
@@ -70,7 +69,7 @@ public class TblPlaceDao {
             System.out.println("randomRestorant 실행 예외 발생: " + e.getMessage());
         }
         return list;
-    }// randomRestorant
+    }// randomRestorant //랜덤
 
     public List<PlaceVo> findName(String name) {
         List<PlaceVo> list = new ArrayList<>();
@@ -89,7 +88,7 @@ public class TblPlaceDao {
                 "    AND tp.name LIKE '%' || '?'  ||'%'";
         try (Connection connection = getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(sql);) {
-            pstmt.setString(1, name);
+            pstmt.setString(1, "%" + name + "%");
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 list.add(new PlaceVo(rs.getInt(1),

@@ -33,17 +33,17 @@ public class RestaurantApp {
             String select = System.console().readLine();
             switch (select) {
                 case "A", "a":
-                    System.out.println("[A]이름으로 맛집 찾기");
+                    System.out.println("[A] 이름으로 맛집 찾기");
                     findName();
                     break;
 
                 case "B", "b":
-                    System.out.println("[B]지역 별로 맛집 찾기");
+                    System.out.println("[B] 지역 별로 맛집 찾기");
                     findArea();
                     break;
 
                 case "C", "c":
-                    System.out.println("[C]평점 순위 보기");
+                    System.out.println("[C] 평점 순위 보기");
                     showRate();
                     break;
 
@@ -58,23 +58,26 @@ public class RestaurantApp {
                     break;
 
                 case "F", "f":
-                    System.out.println("[F]맛집 수정");
-                    modifyResturant();
+                    System.out.println("[F] 맛집 수정");
+                    System.out.println("지역명을 입력해주세요");
+                    String name = System.console().readLine();
+                    int time = Integer.parseInt(System.console().readLine());
+                    System.out.print(placeDao.modifyRate(name, time));
                     break;
 
                 case "G", "g":
-                    System.out.println("[G]삭제");
+                    System.out.println("맛집을 삭제하겠습니다.");
                     removeAdressBook();
                     break;
 
                 case "H", "h":
-                    System.out.println("[H]종료");
+                    System.out.println("[H] 종료");
                     System.out.println("프로그램을 종료합니다");
                     run = false;
                     break;
 
                 default:
-                    System.out.println("잘못된 번호 입력입니다. 다시확인하시고 입력해주세요.");
+                    System.out.println("잘못된 알파벳 입력입니다. 다시 확인하시고 입력해주세요.");
                     break;
             }// switch
         } // while
@@ -88,14 +91,15 @@ public class RestaurantApp {
     }// joinAdressBook
 
     public void findName() {
-        System.out.println("[A] 이름으로 맛집 찾기");
+        System.out.println("찾는 맛집 이름을 입력해주세요__");
         String name = System.console().readLine();
 
         System.out.println(placeDao.findName(name));
     }// findName
 
     public void findArea() {
-        System.out.println("[B] 지역으로 맛집 찾기");
+        System.out.println("맛집 목록[1. 서울 2. 인천 3. 경기 4. 대구 5. 광주 6. 제주 ]");
+        System.out.println("찾는 맛집의 지역명을 입력해주세요__");
         String address = System.console().readLine();
 
         System.out.println(placeAdressDao.findArea(address));
@@ -105,29 +109,24 @@ public class RestaurantApp {
         System.out.println("[C] 평점 순위");
         String address = System.console().readLine();
 
-        System.out.println(placeDao.showRate(address));
+        // System.out.println(placeDao.showRate(rate));
 
     }// showRate
 
-    public void randomRestorant() {
-        System.out.println("[D] 랜덤 맛집 뽑기");
+    public void modifyRate() {
+        System.out.println("지역명을 입력해주세요");
         String name = System.console().readLine();
         int time = Integer.parseInt(System.console().readLine());
-        System.out.println(placeDao.randomRestorant(name, time));
+        System.out.println(placeDao.modifyRate(name, time));
 
-    }// randomRestorant
+    }// modifyRate //평점수정
 
     public void addRasturant() {
-        System.out.println("[E] 맛집 추가");
+        System.out.println("맛집을 추가합니다.");
+        System.out.println("추가할 맛집이름을 입력해주세요.");
         String name = System.console().readLine();
 
     }// addRasturant
-
-    public void modifyResturant() {
-        System.out.println("[F] 맛집 수정");
-        String name = System.console().readLine();
-
-    }// modifyResturant
 
     public void removeAdressBook() {
         System.out.println(".".repeat(50));
@@ -139,6 +138,6 @@ public class RestaurantApp {
             placeAdressDao.deletePlaceAddress(place_seq);
             System.out.println("맛집이 추방되었습니다. 새로운 맛집을 탐방해주세요");
         }
-    }// removeAdressBook
+    }// removeAdressBook //맛집삭제
 
 }
