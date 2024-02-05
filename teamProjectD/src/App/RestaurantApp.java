@@ -77,13 +77,13 @@ public class RestaurantApp {
 
                     break;
 
-                case "F", "f": //이거 덥ㄹ
+                case "F", "f":
                     System.out.println("[F] 평점 수정");
                     System.out.println("지역명을 입력해주세요");
                     name = System.console().readLine();
                     System.out.println("수정할 평점을 입력해주세요");
-                    newRatenewRate = Double.parseDouble(System.console().readLine());
-                    System.out.println(placeDao.modifyRate(name, newRate);
+                    double newRate = Double.parseDouble(System.console().readLine());
+                    placeDao.modifyRate(name, newRate);
                     break;
 
                 case "G", "g":
@@ -112,17 +112,18 @@ public class RestaurantApp {
         } // while
     }// start
 
-    public ArrayList<MenuVo> addMenulist(int menu_seq ,int place_seq, String menu_name, int price) {
+    public ArrayList<MenuVo> addMenulist(int menu_seq, int place_seq, String menu_name, int price) {
         ArrayList<MenuVo> list = new ArrayList<MenuVo>();
         place_seq = Integer.parseInt(System.console().readLine());
         boolean menu = true;
-        while (menu !=true)) {
-            menu_name = System.console().readLine();
-            if (menu_name!="종료하다") {    
-            price = Integer.parseInt(System.console().readLine());
-            list.add(new MenuVo(0, menu_name, place_seq, price));
-            }
+        while (menu != true) {
+            if (menu!=true) {    
+            menu_name = System.console().readLine();            price = Integer.parseInt(System.console().readLine());
+                list.add(new MenuVo(0, menu_name, place_seq, price)); //데이터 타입 안맞는 거 아닌가용?
+            }else{menu = false}
         }
-        
+        return list;
+
     }
+
 }

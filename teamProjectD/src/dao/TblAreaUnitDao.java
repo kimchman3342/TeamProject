@@ -8,8 +8,11 @@ import java.sql.SQLException;
 import vo.AreaUnitVo;
 
 /* 
- *  deleteAreaUnit : 지역 번호(코드 ex) 02, 031.. ) 지우기
+ *   여기에 있는 메소드
+ *   지역 번호(코드 ex) 02, 031.. ) 지우기
+ *  deleteAreaUnit :
  * 
+ *  
  */
 
 public class TblAreaUnitDao {
