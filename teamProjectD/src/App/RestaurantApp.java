@@ -33,6 +33,7 @@ public class RestaurantApp {
             String select = System.console().readLine();
             switch (select) {
                 case "A", "a":
+                    System.out.println("[A]이름으로 맛집 찾기");
                     findName();
                     break;
 
@@ -48,7 +49,7 @@ public class RestaurantApp {
 
                 case "D", "d":
                     System.out.println("[D] 랜덤 맛집 뽑기");
-                    randomFind();
+                    randomRestorant();
                     break;
 
                 case "E", "e":
@@ -101,18 +102,30 @@ public class RestaurantApp {
     }// findArea
 
     public static void showRate() {
+        System.out.println("[C] 평점 순위");
+        String address = System.console().readLine();
+
+        System.out.println(placeDao.findArea(address));
 
     }// showRate
 
-    public static void randomFind() {
+    public static void randomRestorant() {
+        System.out.println("[D] 랜덤 맛집 뽑기");
+        String name = System.console().readLine();
 
-    }// randomFind
+        System.out.println(placeDao.randomRestorant());
+
+    }// randomRestorant
 
     public static void addRasturant() {
+        System.out.println("[E] 맛집 추가");
+        String name = System.console().readLine();
 
     }// addRasturant
 
     public static void modifyResturant() {
+        System.out.println("[F] 맛집 수정");
+        String name = System.console().readLine();
 
     }// modifyResturant
 
