@@ -101,29 +101,29 @@ public class RestaurantApp {
         System.out.println(placeAdressDao.findArea(address));
     }// findArea
 
-    public static void showRate() {
+    public void showRate() {
         System.out.println("[C] 평점 순위");
         String address = System.console().readLine();
 
-        System.out.println(placeDao.findArea(address));
+        System.out.println(placeDao.showRate(address));
 
     }// showRate
 
-    public static void randomRestorant() {
+    public void randomRestorant() {
         System.out.println("[D] 랜덤 맛집 뽑기");
         String name = System.console().readLine();
-
-        System.out.println(placeDao.randomRestorant());
+        int time = Integer.parseInt(System.console().readLine());
+        System.out.println(placeDao.randomRestorant(name, time));
 
     }// randomRestorant
 
-    public static void addRasturant() {
+    public void addRasturant() {
         System.out.println("[E] 맛집 추가");
         String name = System.console().readLine();
 
     }// addRasturant
 
-    public static void modifyResturant() {
+    public void modifyResturant() {
         System.out.println("[F] 맛집 수정");
         String name = System.console().readLine();
 

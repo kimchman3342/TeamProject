@@ -109,7 +109,32 @@ public class TblPlaceDao {
 
     }// 이름으로 찾기
 
-    public static void showRate() {
+    public List<PlaceVo> showRate(int rate) {
+        List<PlaceVo> list = new ArrayList<>();
+        String sql = "SELECT tp.place_seq,tp.name,open_time,close_time,tpa.address,tp.rate\r\n" + //
+                "FROM  tbl_place tp ,tbl_place_address tpa\r\n" + //
+                "WHERE tp.place_seq = tpa.place_seq\r\n" + //
+                "ORDER BY rate DESC";
+
+        try (Connection connection = getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(sql);) {
+            pstmt.setInt(1, rate);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                list.add(new PlaceVo(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("예외 발생 :" + e.getMessage());
+        }
+
+        return list;
 
     }
 
