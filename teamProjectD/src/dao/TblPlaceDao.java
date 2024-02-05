@@ -61,58 +61,54 @@ public class TblPlaceDao {
         }
     }// modifyRate //평점수정
 
-    public List<PlaceVo> randomRestorant(String place, int time) {
+    public List<PlaceVo> randomRestaurant(String place, int time) {
         List<PlaceVo> list = new ArrayList<>();
-        String sql = "SELECT * \r\n" + //
-                "FROM\r\n" + //
-                "   (SELECT * \r\n" + //
-                "   FROM TBL_PLACE tp, \r\n" + //
-                "   TBL_PLACE_ADDRESS tpa \r\n" + //
-                "   WHERE ADDRESS like '%'||?||'%'\r\n" + //
-                "   ORDER BY DBMS_RANDOM.VALUE) \r\n" + //
-                "WHERE ROWNUM <= ?";
+        String sql = "SELECT *\r\n" + //
+                "FROM (\r\n" + //
+                "   SELECT   tp.place_seq\r\n" + //
+                "         ,tp.name\r\n" + //
+                "         , tp.open_time \r\n" + //
+                "           , tp.close_time\r\n" + //
+                "           , tpa.address\r\n" + //
+                "   FROM  tbl_place tp\r\n" + //
+                "      , tbl_place_address tpa\r\n" + //
+                "      , tbl_area_unit au\r\n" + //
+                "   WHERE tp.place_seq = tpa.place_seq\r\n" + //
+                "     AND substr(tpa.address,0,2) = au.unit_name\r\n" + //
+                "     AND au.unit_name = ?\r\n" + //
+                "   ORDER BY DBMS_RANDOM.VALUE\r\n" + //
+                ")\r\n" + //
+                "WHERE ROWNUM <=?";
         try (
                 Connection connection = getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(sql);) {
             pstmt.setString(1, place);
             pstmt.setInt(2, time);
             ResultSet rs = pstmt.executeQuery();
-
             while (rs.next()) {
-                list.add(new PlaceVo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
-                        rs.getString(6), rs.getString(7)));
+                list.add(new PlaceVo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
             }
         } catch (SQLException e) {
-            System.out.println("randomRestorant 실행 예외 발생: " + e.getMessage());
+            System.out.println("실행예외 발생" + e.getMessage());
         }
         return list;
-    }// randomRestorant //랜덤
+    }// randomRestaurant //랜덤
 
     public List<PlaceVo> findName(String name) {
         List<PlaceVo> list = new ArrayList<>();
-        String sql = "SELECT * \r\n" + //
+        String sql = "SELECT tp.PLACE_SEQ, tp.name,tp.PHONE,tp.OPEN_TIME,tp.CLOSE_TIME \r\n" + //
                 "FROM  tbl_place tp\r\n" + //
-                "   , tbl_menu tm\r\n" + //
-                "WHERE tp.place_seq = tm.place_seq\r\n" + //
-                "     -- 이름으로 찾으면 실행\r\n" + //
-                "   AND tp.name LIKE '%' || 낙곱새  ||'%'\r\n" + //
-                "   \r\n" + //
-                "   -- 평점으로 몇점이상인 맛집 찾으면 실행\r\n" + //
-                "   AND rate >= 4.5\r\n" + //
-                "   -- 메뉴로 찾으면 실행\r\n" + //
-                "   AND menu_name LIKE '%' || ?  ||'%'";
+                "WHERE  tp.name LIKE '%' || ? ||'%'";
         try (Connection connection = getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(sql);) {
-            pstmt.setString(1, "%" + name + "%");
+            pstmt.setString(1, name);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 list.add(new PlaceVo(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getString(7)));
+                        rs.getString(4),
+                        rs.getString(5)));
             }
 
         } catch (SQLException e) {
@@ -121,27 +117,25 @@ public class TblPlaceDao {
 
         return list;
 
-    }// 이름으로 찾기
+    }
 
     public List<PlaceVo> showRate(double rate) {
         List<PlaceVo> list = new ArrayList<>();
         String sql = "SELECT tp.place_seq,tp.name,open_time,close_time,tpa.address,tp.rate\r\n" + //
                 "FROM  tbl_place tp ,tbl_place_address tpa\r\n" + //
                 "WHERE tp.place_seq = tpa.place_seq\r\n" + //
-                "ORDER BY rate DESC";
+                "ORDER BY tp.rate DESC";
 
         try (Connection connection = getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(sql);) {
-            pstmt.setDouble(1, rate);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 list.add(new PlaceVo(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4),
+                        rs.getString(4),
                         rs.getString(5),
-                        rs.getString(6),
-                        rs.getString(7)));
+                        rs.getInt(6)));
             }
 
         } catch (SQLException e) {
@@ -158,7 +152,6 @@ public class TblPlaceDao {
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setInt(1, placeSeq);
             pstmt.executeUpdate();
-            System.out.println("가게가 성공적으로 삭제되었습니다.");
         } catch (SQLException e) {
             System.out.println("[메뉴] 삭제 예외 발생: " + e.getMessage());
         }

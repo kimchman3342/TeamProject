@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import vo.MenuVo;
 
@@ -34,4 +35,7 @@ public class TblMenuDao {
         }
     }// deleteMenu
 
+    public static List<MenuVo> getMenuList() {
+        return null;
+    }
 }

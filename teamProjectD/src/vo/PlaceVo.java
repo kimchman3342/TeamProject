@@ -10,17 +10,51 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class PlaceVo {
-    private int place_seq;
-    private String name;
-    private String phone;
-    private int rate;
-    private String open_time;
-    private String close_time;
-    private String food_type;
+        private int place_seq;
+        private String name;
+        private String phone;
+        private int rate;
+        private String open_time;
+        private String close_time;
+        private String food_type;
+        private String address;
 
-    @Override
-    public String toString() {
-        return String.format("%8d %-40s %15s %4d \t %10d~%10d \t %10s",
-                place_seq, name, phone, rate, open_time, close_time, food_type);
-    }
+        public PlaceVo(int place_seq, String name, String open_time, String close_time, String address, int rate) {
+
+                this.place_seq = place_seq;
+                this.name = name;
+                this.open_time = open_time;
+                this.close_time = close_time;
+                this.rate = rate;
+                this.address = address;
+
+        }
+
+        public PlaceVo(int place_seq, String name, String phone, int rate, String open_time, String close_time,
+                        String food_type) {
+
+                this.place_seq = place_seq;
+                this.name = name;
+                this.phone = phone;
+                this.rate = rate;
+                this.food_type = food_type;
+                this.open_time = open_time;
+                this.close_time = close_time;
+        }
+
+        public PlaceVo(int place_seq, String name, String open_time, String close_time, String address) {
+                this.place_seq = place_seq;
+                this.name = name;
+                this.open_time = open_time;
+                this.close_time = close_time;
+                this.address = address;
+        }
+
+        @Override
+        public String toString() {
+                return "[" + place_seq + ", " + name + "" + phone + "," + rate
+                                + ", " + open_time + ", " + close_time + ", " + food_type
+                                + "]\n";
+        }
+
 }
