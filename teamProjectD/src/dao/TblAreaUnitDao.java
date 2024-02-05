@@ -7,6 +7,11 @@ import java.sql.SQLException;
 
 import vo.AreaUnitVo;
 
+/* 
+ *  deleteAreaUnit : 지역 번호(코드 ex) 02, 031.. ) 지우기
+ * 
+ */
+
 public class TblAreaUnitDao {
     public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
     public static final String USERNAME = "c##idev";
@@ -25,5 +30,5 @@ public class TblAreaUnitDao {
         } catch (SQLException e) {
             System.out.println("[메뉴] 삭제 예외 발생: " + e.getMessage());
         }
-    }// deleteMenu
+    }// deleteAreaUnit
 }

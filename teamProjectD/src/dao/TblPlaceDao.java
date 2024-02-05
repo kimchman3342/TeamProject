@@ -11,6 +11,7 @@ import java.util.List;
 import vo.PlaceVo;
 
 /**
+ * 여기 있는 메소드
  * 
  * 삭제
  * deletePlace
@@ -52,8 +53,8 @@ public class TblPlaceDao {
         try (
                 Connection connection = getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(sql);) {
-            pstmt.setDouble(1, newRate);
-            pstmt.setString(2, name);
+            pstmt.setString(1, name);
+            pstmt.setDouble(2, newRate);
             pstmt.executeUpdate();
             System.out.println("가게 평점이 수정되었습니다.");
         } catch (SQLException e) {
@@ -154,7 +155,7 @@ public class TblPlaceDao {
 
     }
 
-    public void deletePlace(PlaceVo pv) {
+    public void deletePlace(int pv) {
         String sql = "DELETE\r\n" + "FROM TBL_Place \r\n" + "WHERE PLACE_SEQ = ?";
         try (Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {

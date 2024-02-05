@@ -7,6 +7,13 @@ import java.sql.SQLException;
 
 import vo.MenuVo;
 
+/**
+ * 여기에 있는 메소드
+ * 
+ * 삭제
+ * void deleteMenu(int paVo)
+ * 
+ */
 public class TblMenuDao {
     public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
     public static final String USERNAME = "c##idev";
@@ -17,7 +24,7 @@ public class TblMenuDao {
     }
 
     public void deleteMenu(MenuVo mv) {
-        String sql = "DELETE\r\n" + "FROM TBL_PLACE_ADDRESS tpa\r\n" + "WHERE PLACE_SEQ = ?";
+        String sql = "DELETE\r\n" + "FROM TBL_MENU \r\n" + "WHERE PLACE_SEQ = ?";
         try (Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setInt(1, mv.getPlace_seq());
