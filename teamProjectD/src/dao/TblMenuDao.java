@@ -24,16 +24,17 @@ public class TblMenuDao {
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
-    public void deleteMenu(MenuVo mv) {
-        String sql = "DELETE\r\n" + "FROM TBL_MENU \r\n" + "WHERE PLACE_SEQ = ?";
+    public void deleteMenu(int place_seq) { // 메뉴 테이블에서 삭제
+
+        String sql = "DELETE FROM TBL_MENU tm WHERE tm.place_seq = ?";
         try (Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setInt(1, mv.getPlace_seq());
+            pstmt.setInt(1, place_seq);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("[메뉴] 삭제 예외 발생: " + e.getMessage());
+            System.out.println("[메뉴] 삭제 예외 발생:" + e.getMessage());
         }
-    }// deleteMenu
+    }
 
     public static List<MenuVo> getMenuList() {
         return null;

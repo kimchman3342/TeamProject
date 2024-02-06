@@ -28,16 +28,17 @@ public class TblPlaceAddressDao {
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }// getConnection
 
-    public void deletePlaceAddress(int paVo) {
-        String sql = "DELETE\r\n" + "FROM TBL_PLACE_ADDRESS tpa\r\n" + "WHERE PLACE_SEQ = ?";
+    public void deletePlaceAddress(int PlaceVo) { // 주소 테이블에서 삭제
+        String sql = "DELETE FROM TBL_PLACE_ADDRESS tpa WHERE PLACE_SEQ = ?";
         try (Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setInt(1, paVo);
+            pstmt.setInt(1, PlaceVo);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("[placeAdress]삭제 예외 발생: " + e.getMessage());
+            System.out.println("삭제 예외 발생" + e.getMessage());
+
         }
-    }// deletePlaceAddress
+    }
 
     public List<PlaceAddressVo> findArea(String address) {
         List<PlaceAddressVo> list = new ArrayList<>();
