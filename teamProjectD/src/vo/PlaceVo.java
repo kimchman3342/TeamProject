@@ -27,7 +27,6 @@ public class PlaceVo {
                 this.close_time = close_time;
                 this.rate = rate;
                 this.address = address;
-
         }
 
         public PlaceVo(int place_seq, String name, String phone, int rate, String open_time, String close_time,

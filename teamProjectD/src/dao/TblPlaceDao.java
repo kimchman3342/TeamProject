@@ -37,16 +37,16 @@ public class TblPlaceDao {
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
-    public void deletePlace(int place_seq) { // place (PK)테이블에서 삭제
-        String sql = "DELETE\r\n" + "FROM TBL_Place \r\n" + "WHERE Place_seq = ?";
+    public void deletePlace(PlaceVo pv) {
+        String sql = "DELETE\r\n" + "FROM TBL_PLACE_ADDRESS tpa\r\n" + "WHERE PLACE_SEQ = ?";
         try (Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setInt(1, place_seq);
+            pstmt.setInt(1, pv.getPlace_seq());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("[메뉴] 삭제 예외 발생: " + e.getMessage());
+            System.out.println("[place] 삭제 예외 발생: " + e.getMessage());
         }
-    }// deletePlace
+    }// deletePlace //맛집삭제
 
     public void modifyRate(int placeSeq, int newRate) {
         String sql = "UPDATE tbl_place SET rate = ? WHERE place_seq = ?";
@@ -95,7 +95,9 @@ public class TblPlaceDao {
             e.printStackTrace(); // 스택 트레이스 출력 추가
         }
         return list;
-    }// randomRestaurant //랜덤
+    }
+
+    // randomRestaurant //랜덤
 
     public List<PlaceVo> findName(String name) {
         List<PlaceVo> list = new ArrayList<>();
