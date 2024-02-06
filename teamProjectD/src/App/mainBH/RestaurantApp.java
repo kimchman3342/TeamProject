@@ -29,7 +29,7 @@ public class RestaurantApp {
     public static void joinAdressBook() {
         System.out.println(".".repeat(50));
         System.out.println("[A] 이름으로 맛집 찾기     [B]지역 별로 맛집 찾기   [C]평점 순위 보기   [D] 랜덤 맛집 뽑기 ");
-        System.out.println("[E] 맛집 추가                [F]맛집 수정               [G]삭제                [H]종료");
+        System.out.println("     [F]맛집 수정               [G]삭제                [H]종료");
         System.out.println(".".repeat(50));
     }// joinAdressBook
 
@@ -86,14 +86,6 @@ public class RestaurantApp {
                     }
                     break;
 
-                case "E", "e":
-                    System.out.println("[E] 맛집 추가");
-                    System.out.println("맛집을 추가합니다.");
-                    System.out.print("추가할 맛집이름을 입력해주세요__");
-                    name = System.console().readLine();
-
-                    break;
-
                 case "F", "f":
                     List<PlaceVo> list2 = placeDao.showRate(1);
                     if (list2.size() > 0) {
@@ -117,14 +109,16 @@ public class RestaurantApp {
                 case "G", "g":
                     System.out.println("맛집을 삭제하겠습니다.");
                     System.out.println(".".repeat(50));
-                    System.out.println("주소록에서 삭제할 맛집 번호를 알려주세요");
-                    System.out.print("맛집 번호 (100??? or 추가된 인덱스번호) >>> ");
+                    System.out.println("추방할 맛집 ID번호를 입력하세요");
+                    System.out.println("100001 ~ 100120 >>>");
                     int place_seq = Integer.parseInt(System.console().readLine());
                     if (place_seq >= 100001 && place_seq <= 100120) {
+                        menuDao.deleteMenu(place_seq);
                         placeAddressDao.deletePlaceAddress(place_seq);
+                        placeDao.deletePlace(place_seq);
                         System.out.println("맛집이 추방되었습니다. 새로운 맛집을 탐방해주세요");
                     } else {
-                        System.out.println("잘못된 번호입니다. 다시 입력해주세요");
+                        System.out.println("입력값이 잘못되었습니다 다시 입력해주세요");
                     }
                     break;
 

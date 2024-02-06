@@ -41,6 +41,18 @@ public class PlaceVo {
                 this.food_type = food_type;
         }
 
+        public PlaceVo(int place_seq, String name, String open_time, String close_time, String address) {
+                this.place_seq = place_seq;
+                this.name = name;
+                this.open_time = open_time;
+                this.close_time = close_time;
+                this.address = address;
+                // 나머지 필드는 기본값 또는 null로 설정
+                this.phone = null;
+                this.rate = 0;
+                this.food_type = null;
+        }
+
         @Override
         public String toString() {
                 return place_seq + ", " + name + ", " + phone + ", " + rate
