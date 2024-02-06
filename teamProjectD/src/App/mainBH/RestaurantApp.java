@@ -1,4 +1,4 @@
-package App;
+package App.mainBH;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +68,7 @@ public class RestaurantApp {
                                     + "\t" + vo.getClose_time() + "\t" + vo.getAddress());
                         }
                     }
+                    break;
 
                 case "D", "d":
                     System.out.println("[D] 랜덤 맛집 뽑기");
@@ -94,9 +95,8 @@ public class RestaurantApp {
                     break;
 
                 case "F", "f":
-                    System.out.println("[F] 평점 수정");
-                    System.out.println("[1. 서울 2. 인천 3. 경기 4. 대구 5. 광주 6. 제주 ]");
-                    System.out.println("지역명을 입력해주세요__");
+                    System.out.println("가게 평점을 수정하겠습니다.");
+                    System.out.println("맛집 번호를 입력해주세요__");
                     name = System.console().readLine();
                     System.out.println("수정할 평점을 입력해주세요__");
                     double newRate = Double.parseDouble(System.console().readLine());
@@ -132,29 +132,5 @@ public class RestaurantApp {
             }// switch
         } // while
     }// start
-
-    public ArrayList<PlaceVo> addPlacelist(int place_seq, String name) {
-        ArrayList<PlaceVo> list = new ArrayList<PlaceVo>();
-        int place_seq;
-        String name;
-
-        place_seq = Integer.parseInt(System.console().readLine());
-
-        boolean place_seq = true;
-        while (place_seq) {
-            name = System.console().readLine();
-            place_seq = Integer.parseInt(System.console().readLine());
-            list.add(new PlaceVo(0, menu_name, place_seq, price));
-
-            // 추가할 메뉴가 더 있는지 확인
-            System.out.println("더 추가할 메뉴가 있습니까? (Y/N)");
-            String answer = System.console().readLine();
-            if (answer.equalsIgnoreCase("N")) {
-                place_seq = false;
-            }
-        }
-
-        return list;
-    }
 
 }

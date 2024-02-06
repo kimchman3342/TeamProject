@@ -19,8 +19,5 @@ public class MenuVo {
                 place_seq, menu_seq, menu_name, price);
     }
 
-    public MenuVo(int menu_seq, String menu_name2, int place_seq2, int price2) {
-        // TODO Auto-generated constructor stub
-    }
-
+  
 }
