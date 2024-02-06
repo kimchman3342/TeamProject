@@ -1,4 +1,4 @@
-package App.HY;
+package App.HY.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
