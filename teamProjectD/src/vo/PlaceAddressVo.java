@@ -9,16 +9,17 @@ import lombok.Getter;
 @EqualsAndHashCode
 public class PlaceAddressVo {
     // private int address_seq;
-    private int place_seq;
     private String address;
     private String name;
     private String open_time;
     private String close_time;
+    private String food_type;
 
     @Override
     public String toString() {
-        return "place_seq=" + place_seq + ", address=" + address + ", name=" + name + ", open_time="
-                + open_time + ", close_time=" + close_time;
+        String formattedString = String.format("%-20s%-35s%-20s%-20s%-20s", name, "주소 : " + address,
+                "오픈 : " + open_time, "마감 : " + close_time, "가게 유형 : " + food_type);
+        return formattedString;
     }
 
 }

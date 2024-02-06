@@ -48,18 +48,20 @@ public class TblPlaceDao {
         }
     }// deletePlace //맛집삭제
 
-    public void modifyRate(String name, double newRate) {
+    public void modifyRate(int placeSeq, int newRate) {
         String sql = "UPDATE tbl_place SET rate = ? WHERE place_seq = ?";
         try (
                 Connection connection = getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(sql);) {
-            pstmt.setString(1, name);
-            pstmt.setDouble(2, newRate);
+            pstmt.setInt(1, newRate);
+            pstmt.setInt(2, placeSeq);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("가게 평점 변경 실행 예외 발생: " + e.getMessage());
         }
-    }// modifyRate //평점수정
+    }
+
+    // modifyRate //평점수정
 
     public List<PlaceVo> randomRestaurant(String place, int time) {
         List<PlaceVo> list = new ArrayList<>();
@@ -86,7 +88,8 @@ public class TblPlaceDao {
             pstmt.setInt(2, time);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                list.add(new PlaceVo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+                list.add(new PlaceVo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getInt(6)));
             }
         } catch (SQLException e) {
             System.out.println("실행예외 발생" + e.getMessage());
@@ -96,7 +99,7 @@ public class TblPlaceDao {
 
     public List<PlaceVo> findName(String name) {
         List<PlaceVo> list = new ArrayList<>();
-        String sql = "SELECT tp.PLACE_SEQ, tp.name,tp.PHONE,tp.OPEN_TIME,tp.CLOSE_TIME \r\n" + //
+        String sql = "SELECT tp.PLACE_SEQ, tp.name, tp.PHONE,tp.rate, tp.OPEN_TIME, tp.CLOSE_TIME, tp.food_type \r\n" + //
                 "FROM  tbl_place tp\r\n" + //
                 "WHERE  tp.name LIKE '%' || ? ||'%'";
         try (Connection connection = getConnection();
@@ -107,8 +110,10 @@ public class TblPlaceDao {
                 list.add(new PlaceVo(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5)));
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)));
             }
 
         } catch (SQLException e) {

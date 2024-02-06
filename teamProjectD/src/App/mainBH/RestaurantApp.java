@@ -95,13 +95,21 @@ public class RestaurantApp {
                     break;
 
                 case "F", "f":
+                    List<PlaceVo> list2 = placeDao.showRate(1);
+                    if (list2.size() > 0) {
+                        for (PlaceVo vo : list2) {
+                            System.out.println(vo.getPlace_seq() + "\t" + vo.getName() + "\t" + vo.getRate() + "\t"
+                                    + vo.getOpen_time()
+                                    + "\t" + vo.getClose_time() + "\t" + vo.getAddress());
+                        }
+                    }
                     System.out.println("가게 평점을 수정하겠습니다.");
                     System.out.println("맛집 번호를 입력해주세요__");
-                    name = System.console().readLine();
+                    int placeSeq = Integer.parseInt(System.console().readLine());
                     System.out.println("수정할 평점을 입력해주세요__");
-                    double newRate = Double.parseDouble(System.console().readLine());
+                    int newRate = Integer.parseInt(System.console().readLine());
                     if (newRate != 0) {
-                        placeDao.modifyRate(name, newRate);
+                        placeDao.modifyRate(placeSeq, newRate);
                         System.out.println("가게 평점이 수정되었습니다.");
                     }
                     break;

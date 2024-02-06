@@ -32,29 +32,19 @@ public class PlaceVo {
 
         public PlaceVo(int place_seq, String name, String phone, int rate, String open_time, String close_time,
                         String food_type) {
-
                 this.place_seq = place_seq;
-                this.name = name;
-                this.phone = phone;
+                this.name = (name == null) ? "" : name;
+                this.phone = (phone == null) ? "" : phone;
                 this.rate = rate;
+                this.open_time = (open_time == null) ? "" : open_time;
+                this.close_time = (close_time == null) ? "" : close_time;
                 this.food_type = food_type;
-                this.open_time = open_time;
-                this.close_time = close_time;
-        }
-
-        public PlaceVo(int place_seq, String name, String open_time, String close_time, String address) {
-                this.place_seq = place_seq;
-                this.name = name;
-                this.open_time = open_time;
-                this.close_time = close_time;
-                this.address = address;
         }
 
         @Override
         public String toString() {
-                return "[" + place_seq + ", " + name + "" + phone + "," + rate
-                                + ", " + open_time + ", " + close_time + ", " + food_type
-                                + "]\n";
+                return place_seq + ", " + name + ", " + phone + ", " + rate
+                                + ", " + open_time + ", " + close_time + ", " + food_type;
         }
 
 }

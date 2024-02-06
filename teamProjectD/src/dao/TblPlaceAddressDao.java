@@ -41,11 +41,12 @@ public class TblPlaceAddressDao {
 
     public List<PlaceAddressVo> findArea(String address) {
         List<PlaceAddressVo> list = new ArrayList<>();
-        String sql = "SELECT   tp.place_seq\r\n" + //
-                "        , tpa.address\r\n" + //
+        String sql = "SELECT " + //
+                "        tpa.address\r\n" + //
                 "      ,tp.name\r\n" + //
                 "      , open_time \r\n" + //
                 "        , close_time\r\n" + //
+                "       ,   food_type\r\n" + //
                 "FROM  tbl_place tp\r\n" + //
                 "   , tbl_place_address tpa\r\n" + //
                 "   , tbl_area_unit au\r\n" + //
@@ -57,7 +58,7 @@ public class TblPlaceAddressDao {
             pstmt.setString(1, address);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                list.add(new PlaceAddressVo(rs.getInt(1),
+                list.add(new PlaceAddressVo(rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
