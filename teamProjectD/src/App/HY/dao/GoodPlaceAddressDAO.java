@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import App.HY.AreaSchPlaceVO;
-import App.HY.PlaceSchVO;
-import App.HY.RandomSchPlaceVO;
 import App.HY.resource.JdbcConnection;
+import App.HY.vo.AreaSchPlaceVO;
+import App.HY.vo.PlaceSchVO;
+import App.HY.vo.RandomSchPlaceVO;
 
 /**
  * DB 데이터 접근 클래스
